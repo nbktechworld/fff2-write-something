@@ -1,0 +1,33 @@
+.entry {
+  border: 1px solid black;
+  margin-bottom: 12px;
+  padding: 6px;
+}
+
+.entry-submit-button {
+  background-color: #fcff40;
+  border: 2px solid #2196F3;
+  border-radius: 4px;
+  color: #1b00ed;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 4px 12px;
+}
+
+.entry-submit-button-container {
+  margin-bottom: 12px;
+  text-align: right;
+}
+
+#new-entry-textarea {
+  width: 100%;
+}
+
+.new-entry-error {
+  color: #e10f0f;
+}
+
+.new-entry-error-hidden {
+  display: none;
+}
