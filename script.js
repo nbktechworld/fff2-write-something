@@ -20,7 +20,22 @@ function fetchEntries() {
   });
 }
 
+// entry is an object like { text: "Hello World" }
+function createEntry(entry) {
+  return fetch("http://localhost:3000/entries", {
+    method: "POST",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(response => {
+      return response.json();
+    });
+}
+
 fetchEntries();
+// exercise: .catch((error) => { /* ... */ })
 
 const submitButton = document.getElementById("entry-submit-button");
 submitButton.addEventListener("click", (event) => {
@@ -37,7 +52,15 @@ submitButton.addEventListener("click", (event) => {
     return;
   }
 
-  addNewEntry(entryText);
+  createEntry({ text: entryText })
+    .then((entry) => {
+      addNewEntry(entry.text);
+    })
+    .catch(error => {
+      errorSpan.textContent = error.message;
+      errorSpan.classList.remove("new-entry-error-hidden");
+    });
+
 
   // clear the text area
   textarea.value = "";
