@@ -22,6 +22,8 @@ function fetchEntries() {
 
 // entry is an object like { text: "Hello World" }
 function createEntry(entry) {
+  let hasError = false;
+
   return fetch("http://localhost:3000/entries", {
     method: "POST",
     body: JSON.stringify(entry),
@@ -30,7 +32,18 @@ function createEntry(entry) {
     },
   })
     .then(response => {
+      if (!response.ok) {
+        hasError = true;
+      }
+
       return response.json();
+    })
+    .then(responseJson => {
+      if (hasError) {
+        throw new Error(responseJson.error); // { "error": "The message" }
+      }
+
+      return responseJson;
     });
 }
 
@@ -51,19 +64,25 @@ submitButton.addEventListener("click", (event) => {
     }
     return;
   }
+  else if (entryText.length > 256) {
+    if (errorSpan) {
+      errorSpan.textContent = "Entry text must not be longer than 256 characters";
+      errorSpan.classList.remove("new-entry-error-hidden");
+    }
+    return;
+  }
 
   createEntry({ text: entryText })
     .then((entry) => {
+      // clear the text area
+      textarea.value = "";
+      // clear any error message
+      errorSpan && errorSpan.classList.add("new-entry-error-hidden");
+
       addNewEntry(entry.text);
     })
     .catch(error => {
       errorSpan.textContent = error.message;
       errorSpan.classList.remove("new-entry-error-hidden");
     });
-
-
-  // clear the text area
-  textarea.value = "";
-  // clear any error message
-  errorSpan && errorSpan.classList.add("new-entry-error-hidden");
 });
