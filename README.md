@@ -19,3 +19,21 @@ Backend
 
 - text editor
 - browser
+
+## How to Run
+
+Make sure you have MySQL installed. You'll need to create the database that the backend connects to.
+
+Install the dependencies:
+
+```
+npm install
+```
+
+Run the backend development server:
+
+```
+npm run dev
+```
+
+Open `index.html` in the browser.
