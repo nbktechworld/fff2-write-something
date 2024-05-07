@@ -9,10 +9,10 @@ sudo mysql
 
 ## macOS
 
-1. Installer
+1. Installer  
 https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html
-2. Brew
-brew install mysql
+2. Brew  
+`brew install mysql`
 
 ## Windows
 
